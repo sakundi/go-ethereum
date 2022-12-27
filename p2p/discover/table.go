@@ -470,16 +470,18 @@ func (tab *Table) addSeenNode(n *node) {
 	b := tab.bucket(n.ID())
 	if contains(b.entries, n.ID()) {
 		// Already in bucket, don't add.
+		tab.log.Debug("Already in bucket, don't add:", "addr", n.IP())
 		return
 	}
 	if len(b.entries) >= bucketSize {
 		// Bucket full, maybe add as replacement.
+		tab.log.Debug("Bucket full, maybe add as replacement:", "addr", n.IP())
 		tab.addReplacement(b, n)
 		return
 	}
 	if !tab.addIP(b, n.IP()) {
 		// Can't add: IP limit reached.
-		tab.log.Debug("Can't add: IP limit reached.:", "addr", n.IP())
+		tab.log.Debug("Can't add: IP limit reached:", "addr", n.IP())
 		return
 	}
 	// Add to end of bucket:
