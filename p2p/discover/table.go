@@ -479,7 +479,7 @@ func (tab *Table) addSeenNode(n *node) {
 	}
 	if !tab.addIP(b, n.IP()) {
 		// Can't add: IP limit reached.
-		t.log.Debug("Can't add: IP limit reached.:", "addr", n.IP())
+		tab.log.Debug("Can't add: IP limit reached.:", "addr", n.IP())
 		return
 	}
 	// Add to end of bucket:
