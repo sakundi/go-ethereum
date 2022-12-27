@@ -648,8 +648,8 @@ func (t *UDPv5) dispatchReadPacket(from *net.UDPAddr, content []byte) bool {
 // handlePacket decodes and processes an incoming packet from the network.
 func (t *UDPv5) handlePacket(rawpacket []byte, fromAddr *net.UDPAddr) error {
 	addr := fromAddr.String()
-	t.log.Debug("Contacted by peer:", "addr", addr)
 	fromID, fromNode, packet, err := t.codec.Decode(rawpacket, addr)
+	t.log.Debug("Contacted by peer:", "addr", addr)
 	if err != nil {
 		t.log.Debug("Bad discv5 packet", "id", fromID, "addr", addr, "err", err)
 		return err
