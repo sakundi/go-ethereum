@@ -449,11 +449,13 @@ func (c *Codec) Decode(input []byte, addr string) (src enode.ID, n *enode.Node, 
 	msgData := input[authDataEnd:]
 	switch head.Flag {
 	case flagWhoareyou:
+		log.Logger.Debug("flagWhoareyou:", "id", src, "addr", n.IP())
 		p, err = c.decodeWhoareyou(&head, headerData)
 	case flagHandshake:
-		log.Logger.Debug("Bad discv5 packet", "id", src, "addr", n.IP())
+		log.Logger.Debug("flagHandshake:", "id", src, "addr", n.IP())
 		n, p, err = c.decodeHandshakeMessage(addr, &head, headerData, msgData)
 	case flagMessage:
+		log.Logger.Debug("flagMessage:", "id", src, "addr", n.IP())
 		p, err = c.decodeMessage(addr, &head, headerData, msgData)
 	default:
 		err = errInvalidFlag
