@@ -32,6 +32,7 @@ import (
 	"github.com/ethereum/go-ethereum/p2p/enode"
 	"github.com/ethereum/go-ethereum/p2p/enr"
 	"github.com/ethereum/go-ethereum/rlp"
+	"github.com/ethereum/go-ethereum/log"
 )
 
 // TODO concurrent WHOAREYOU tie-breaker
@@ -450,6 +451,7 @@ func (c *Codec) Decode(input []byte, addr string) (src enode.ID, n *enode.Node, 
 	case flagWhoareyou:
 		p, err = c.decodeWhoareyou(&head, headerData)
 	case flagHandshake:
+		log.Logger.Debug("Bad discv5 packet", "id", src, "addr", n.IP())
 		n, p, err = c.decodeHandshakeMessage(addr, &head, headerData, msgData)
 	case flagMessage:
 		p, err = c.decodeMessage(addr, &head, headerData, msgData)
