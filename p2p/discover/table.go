@@ -583,6 +583,7 @@ func (tab *Table) addReplacement(b *bucket, n *node) {
 	var removed *node
 	b.replacements, removed = pushNode(b.replacements, n, maxReplacements)
 	if removed != nil {
+		tab.log.Debug("Remove", "ip", removed.IP(), "by", n.IP())
 		tab.removeIP(b, removed.IP())
 	}
 }
