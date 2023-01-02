@@ -819,10 +819,10 @@ func (t *UDPv5) collectTableNodes(rip net.IP, distances []uint, limit int) []*en
 			if netutil.CheckRelayIP(rip, n.IP()) != nil {
 				continue
 			}
-			nodes = append(nodes, n)
-			if len(nodes) >= limit {
-				return nodes
-			}
+			// nodes = append(nodes, n)
+			// if len(nodes) >= limit {
+			//	return nodes
+			// }
 		}
 	}
 	return nodes
