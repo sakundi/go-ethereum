@@ -656,8 +656,9 @@ func (t *UDPv5) handlePacket(rawpacket []byte, fromAddr *net.UDPAddr) error {
 	}
 	if fromNode != nil {
 		// Handshake succeeded, add to table.
-                t.log.Debug("Tikuna log - origin ip:", "addr", addr)
-		t.tab.addSeenNode(wrapNode(fromNode))
+		n := wrapNode(fromNode)
+		t.log.Debug("Tikuna log - origin ip:", "addr", addr, "enr addr", n.IP())
+		t.tab.addSeenNode(n)
 	}
 	if packet.Kind() != v5wire.WhoareyouPacket {
 		// WHOAREYOU logged separately to report errors.
