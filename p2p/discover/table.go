@@ -583,9 +583,8 @@ func (tab *Table) addReplacement(b *bucket, n *node) {
 	var removed *node
 	b.replacements, removed = pushNode(b.replacements, n, maxReplacements)
 	if removed != nil {
-		tab.log.Debug("Tikuna log - enr data", "ip", removed.IP(),
-				"port-removed", removed.UDP(), "by", n.IP(),
-				"bucket", b, "port-added", n.UDP())
+		tab.log.Debug("Tikuna log - enr data", "ip", removed.IP(), "port-removed",
+				removed.UDP(), "by", n.IP(), "port-added", n.UDP())
 		tab.removeIP(b, removed.IP())
 	}
 }
