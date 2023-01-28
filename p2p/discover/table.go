@@ -583,8 +583,9 @@ func (tab *Table) addReplacement(b *bucket, n *node) {
 	var removed *node
 	b.replacements, removed = pushNode(b.replacements, n, maxReplacements)
 	if removed != nil {
-		tab.log.Debug("Tikuna log - enr data", "ip", removed.IP(), "port-removed",
-				removed.UDP(), "by", n.IP(), "port-added", n.UDP())
+		d := enode.LogDist(tab.self().ID(), n.ID())
+		tab.log.Debug("Tikuna log - remove IP", "removed-ip", removed.IP(), "removed-port",
+				removed.UDP(), "added-ip", n.IP(), "added-port", n.UDP(), "bucket", d)
 		tab.removeIP(b, removed.IP())
 	}
 }
