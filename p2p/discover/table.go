@@ -549,6 +549,7 @@ func (tab *Table) addIP(b *bucket, ip net.IP) bool {
 		return false // Nodes without IP cannot be added.
 	}
 	if netutil.IsLAN(ip) {
+		tab.log.Debug("IP is LAN", "ip", ip)
 		return true
 	}
 	if !tab.ips.Add(ip) {
@@ -560,6 +561,7 @@ func (tab *Table) addIP(b *bucket, ip net.IP) bool {
 		tab.ips.Remove(ip)
 		return false
 	}
+	tab.log.Debug("IP added all good", "ip", ip)
 	return true
 }
 
