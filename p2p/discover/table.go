@@ -485,7 +485,8 @@ func (tab *Table) addSeenNode(n *node) {
 		return
 	}
 	// Add to end of bucket:
-	tab.log.Debug("Add to end of bucket:", "addr", n.IP())
+        d := enode.LogDist(tab.self().ID(), n.ID())
+	tab.log.Debug("Add to end of bucket:", "address", n.IP(), "bucket", d)
 	b.entries = append(b.entries, n)
 	b.replacements = deleteNode(b.replacements, n)
 	n.addedAt = time.Now()
