@@ -32,7 +32,6 @@ import (
 	"github.com/ethereum/go-ethereum/p2p/enode"
 	"github.com/ethereum/go-ethereum/p2p/enr"
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/ethereum/go-ethereum/log"
 )
 
 // TODO concurrent WHOAREYOU tie-breaker
@@ -473,13 +472,10 @@ func (c *Codec) Decode(inputData []byte, addr string) (src enode.ID, n *enode.No
 	msgData := input[authDataEnd:]
 	switch head.Flag {
 	case flagWhoareyou:
-		log.Logger.Debug("flagWhoareyou:", "id", src, "addr", n.IP())
 		p, err = c.decodeWhoareyou(&head, headerData)
 	case flagHandshake:
-		log.Logger.Debug("flagHandshake:", "id", src, "addr", n.IP())
 		n, p, err = c.decodeHandshakeMessage(addr, &head, headerData, msgData)
 	case flagMessage:
-		log.Logger.Debug("flagMessage:", "id", src, "addr", n.IP())
 		p, err = c.decodeMessage(addr, &head, headerData, msgData)
 	default:
 		err = errInvalidFlag
